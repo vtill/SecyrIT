@@ -1,0 +1,11 @@
+Aufgabe:
+	Netzwerk Sniffer auf Basis von Raspberry Pi
+	
+Umgesetzte Teilaufgaben:
+	Dhcp einrichten
+	Scapy installieren
+	NAT einrichten per iptables
+	Bottle installieren (Web Server)	
+	Wifi liste darstellen
+	
+	

@@ -1,0 +1,30 @@
+Was wurde bisher gemacht ?
+
+dhcp installiert
+dns installiert
+
+dhcp server installieren
+$ sudo apt-get install isc-dhcp-server
+
+dns server installieren
+$ sudo apt-get install bind9
+$ sudo apt-get install dnsutils
+
+nat vereinfachung
+  sudo apt-get install iptables-persistent
+
+editierte Dateien:
+ /etc/sysctl.conf
+ /etc/default/isc-dhcp-server
+ /etc/iptables/rules.v4
+ /etc/network/interfaces 
+
+
+wichtige links
+http://raspberrypihq.com/how-to-turn-a-raspberry-pi-into-a-wifi-router/
+http://www.raspberry-pi-geek.de/Magazin/2014/03/RasPi-als-DHCP-und-DNS-Server
+http://www.sysadminslife.com/linux/quicktipp-iptables-regeln-dauerhaft-speichern-mit-iptables-persistent-debian-ubuntu-linux-mint/
+
+caveeats:
+mit route -n gateways anschauen
+bei 

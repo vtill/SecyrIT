@@ -1,0 +1,5 @@
+subnet 10.254.239.0 netmask 255.255.255.0 {
+range 10.254.239.2 10.254.239.200;
+option domain-name-servers 8.8.8.8, 8.8.4.4;
+option routers 10.254.239.1; 
+

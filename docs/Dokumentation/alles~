@@ -1,0 +1,97 @@
+Aufgabe:
+	Netzwerk Sniffer auf Basis von Raspberry Pi
+	OS:Raspberian
+	
+Umgesetzte Teilaufgaben:
+	1.Umgebung erzeugen:
+		1.1.Statische ip Addresse
+		1.2.packet forwarding
+		1.3.Dhcp einrichten
+		1.4.NAT einrichten per iptables
+		1.5.Bottle installieren (Web Server)	
+		1.6.Wifi liste darstellen per Python
+		1.7.Scapy installieren
+	2.Anwendung-ist:
+		2.1. auflisten der AccessPoints
+		2.2. auslesen von nat-daten
+	3.Anwendung-bekannte todo:	
+		3.1. conntrackd anschauen um länge der verbindung heraus zu finden
+		3.2. ggf Kernel kompilieren
+		
+	
+1.1. Datei editieren pfad= '/etc/network/interfaces'
+	'iface eth0 inet manual' wird auskommentiert
+	hinzugefügt wird:
+	'auto eth0'
+	'iface eth0 inet static'
+	'address 10.254.239.1'
+	'netmask 255.255.255.0'
+
+	zu beachten:
+		'address 10.254.239.1'
+		'netmask 255.255.255.0'
+		hier ist es wichtig ein netzwerk zu wählen,
+		was ungenutzt ist.
+
+1.2. Datei editieren pfad='/etc/sysctl.conf'
+	Zeile 28 wird 'net.ipv4.ip_forward=1' auskommentiert
+
+1.3.
+	dhcp server installieren:
+		'apt-get install isc-dhcp-server'
+	dhcp server einrichten:
+		datei editieren pfad='etc/default/isc-dhcp-server'
+			'INTERFACES="eth0"' am ende auskommentieren oder hinzufügen
+		backupdatei erstellen:
+			'cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak'
+		inhalt von '/etc/dhcp/dhcpd.conf' überschreiben:
+------------------------------------------------------------------	
+ddns-update-style none;
+authoritative;
+log-facility local7;
+
+subnet 10.254.239.0 netmask 255.255.255.0 {
+  range 10.254.239.2 10.254.239.200;
+  option domain-name-servers 8.8.8.8, 8.8.4.4;
+  option routers 10.254.239.1; 
+  option broadcast-address 10.254.239.254;
+  default-lease-time 600;
+  max-lease-time 7200;
+}
+------------------------------------------------------------------
+
+1.4.
+	iptables vereinfachung installieren:
+  	'apt-get install iptables-persistent'
+	iptables befehle eingeben:
+		'iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE'
+		'iptables -A FORWARD -i wlan0 -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT'
+		'iptables -A FORWARD -i eth0 -o wlan0 -j ACCEPT'
+	iptable Regeln speichern:
+		'iptable-save'
+
+1.5.
+	'pip install bottle'
+1.6.
+	'pip install wifi'
+1.7.
+	'pip install scapy'
+	'pip install scapy-http'
+
+
+2.1.
+	mit dem wifi modul können alle erreichbaren access point ausgelesen werden
+2.2.
+	Es werden 2 Dateien ausgelesen:
+		'/proc/net/nf_conntrack'
+		'/proc/net/ip_conntrack'
+	Und die Ausgabe von einer Datei angezeigt:
+		'netstat-nat'
+
+3.1
+	Um die Anforderungen aus der Seite: 'http://www.conntrack-tools.netfilter.org/manual' Chapter 3 nachprüfen zu können,
+	muss man die Kernel Configs auslesen.
+	Dies kann man machen indem man zuerst 'modprobe configs' ausführt und dann die Datei: '/proc/configs.gz' entpackt.
+	Die Anforderungen von der Seite werden im Raspberian Linux Kernel erfüllt.
+	Jetzt schaue ich mir noch die einzelnen Kernel Eigenschaften an die vielleicht das Problem lösen könnte.'https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt'
+	

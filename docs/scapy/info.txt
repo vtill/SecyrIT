@@ -1,0 +1,8 @@
+
+
+Links&pdfs:
+https://theitgeekchronicles.files.wordpress.com/2012/05/scapyguide1.pdf
+http://biot.com/capstats/bpf.html
+http://stackoverflow.com/questions/37453283/filter-options-for-sniff-function-in-scapy
+http://www.secdev.org/projects/scapy/files/scapydoc.pdf
+https://thepacketgeek.com/tag/scapy/

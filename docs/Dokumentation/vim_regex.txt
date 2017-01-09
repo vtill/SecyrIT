@@ -1,0 +1,5 @@
+:'<,'>s/\(\S*\)\s*\(\d*\).*/,\2:"\1"/
+Input:
+	nameserver  42/tcp    name    # IEN 116
+OUtput:
+	,42:"nameserver"
