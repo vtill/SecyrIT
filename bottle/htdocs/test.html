@@ -1,0 +1,85 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Title of the document</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="row">
+  <div class="btn btn-default">default_button</div>
+  <div id="output" class="container"></div>
+</div>
+
+<!-- <script src="js/bootstrap.min.js" type="text/javascript"></script>	-->
+<script type="text/javascript">
+	var xhr = new XMLHttpRequest();
+	//var myRequest = new XMLHttpRequest();
+	xhr.open('GET', '/status_ip_json', true);
+	xhr.onload = function () {
+  // Request finished. Do processing here.
+		//var elem=document.getElementsByTagName("body")[0];
+		var elem=document.getElementById("output");
+		var j=JSON.parse(xhr.responseText);
+		var j=JSON.parse(j);
+		var tbl=document.createElement("table");
+		tbl.className="table";
+		console.log(j.length);
+		var tr=document.createElement("tr");
+		var td=document.createElement("th");
+		td.innerHTML="Dport";
+		tr.appendChild(td);
+		var td=document.createElement("th");
+		td.innerHTML="Destination IP";
+		tr.appendChild(td);
+		var td=document.createElement("th");
+		td.innerHTML="Delta_time";
+		tr.appendChild(td);
+		var td=document.createElement("th");
+		td.innerHTML="gesendete Packete";
+		tr.appendChild(td);
+		var td=document.createElement("th");
+		td.innerHTML="versendete Daten in Bytes";
+		tr.appendChild(td);
+		var td=document.createElement("th");
+		td.innerHTML="Trans Layer Protocol Name";
+		tr.appendChild(td);
+		tbl.appendChild(tr);
+
+		for (i=0;i<j.length;i++){
+			var tr=document.createElement("tr");
+			
+
+			var td=document.createElement("td");
+			td.innerHTML=j[i].cons[0].dport;
+			tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=j[i].cons[0].dst;
+			tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=j[i].delta_time;
+			tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=j[i].cons[0].packets;
+			tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=j[i].cons[0].bytes;
+			tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=j[i].proto_name;
+			tr.appendChild(td);
+			tbl.appendChild(tr);
+
+			console.log(j[i].status);
+			console.log(j[i].status);
+			//alert(j[i].status);
+		}
+		//elem.innerHTML=xhr.responseText;
+		elem.appendChild(tbl);
+	};
+
+	xhr.send(null);	
+</script>
+</body>
+</html> 

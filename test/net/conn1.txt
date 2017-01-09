@@ -1,0 +1,1 @@
+ipv4     2 udp      17 26 src=192.168.0.196 dst=255.255.255.255 sport=17500 dport=17500 packets=2 bytes=542 [UNREPLIED] src=255.255.255.255 dst=192.168.0.196 sport=17500 dport=17500 packets=0 bytes=0 mark=0 zone=0 delta-time=33 use=2
