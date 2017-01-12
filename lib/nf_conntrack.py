@@ -1,5 +1,6 @@
 from subprocess import Popen,PIPE,check_output
 import json
+import socket
 
 import sys
 import table
@@ -154,8 +155,21 @@ def nf_conntrack_parse0(row):
 	#for idx in range(len(case)):
 		#parsed[case[idx]]	
 
-	con1["src_country"]=geo.getCountryNameByAddr(con1["src"])
-	con1["dst_country"]=geo.getCountryNameByAddr(con1["dst"])
+
+	if "src" in con1:
+		con1["src_country"]=geo.getCountryNameByAddr(con1["src"])
+		try:
+			con1["src_name"]=socket.gethostbyaddr(con1["src"])[0]
+		except:
+			pass
+
+	if "dst" in con1:
+		con1["dst_country"]=geo.getCountryNameByAddr(con1["dst"])
+		try:
+			con1["dst_name"]=socket.gethostbyaddr(con1["dst"])[0]
+		except:
+			pass
+
 	#print con1.keys()
 	#print con1["sport"]
 	#print con1["dport"]
@@ -171,8 +185,20 @@ def nf_conntrack_parse0(row):
 		iDport1=int(con1["dport"])
 		con1["dport_name"]=portname.getPortName(iDport1)
 	cons.append(con1)
-	con2["src_country"]=geo.getCountryNameByAddr(con2["src"])
-	con2["dst_country"]=geo.getCountryNameByAddr(con2["dst"])
+
+	if "src" in con2:
+		con2["src_country"]=geo.getCountryNameByAddr(con2["src"])
+		try:
+			con2["src_name"]=socket.gethostbyaddr(con2["src"])[0]
+		except:
+			pass
+
+	if "dst" in con2:
+		con2["dst_country"]=geo.getCountryNameByAddr(con2["dst"])
+		try:
+			con2["dst_name"]=socket.gethostbyaddr(con2["dst"])[0]
+		except:
+			pass
 	if("sport" in con2):
 		iSport2=int(con2["sport"])
 		con2["sport_name"]=portname.getPortName(iSport2)

@@ -141,7 +141,7 @@ def showWifi():
   pass  
 
 def datei(pfad):
-	banana="/root/sniffer/bottle/htdocs"
+	banana="/root/SecyrIT/bottle/htdocs"
 	return static_file(pfad,root=banana)
 
 ###################################################################################
