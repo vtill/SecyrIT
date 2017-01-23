@@ -1,0 +1,11 @@
+#! /bin/sh
+blah=/var/run/bottle/bottle.pid
+pid=`cat shit.pid`
+
+echo $pid
+
+if [ $pid ]; then
+	echo true
+else
+	echo false
+fi

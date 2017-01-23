@@ -1,0 +1,53 @@
+#! /bin/sh
+# /etc/init.d/set_kernel_opts
+
+### BEGIN INIT INFO
+# Provides:          bottle
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Example initscript
+# Description:       This file should be used to construct scripts to be
+#                    placed in /etc/init.d.  This example start a
+#                    single forking daemon capable of writing a pid
+#                    file.  To get other behavoirs, implemend
+#                    do_start(), do_stop() or other functions to
+#                    override the defaults in /lib/init/init-d-script.
+### END INIT INFO
+
+rootfolder=/root/SecyrIT/bottle
+file=main.py
+
+pidfile=/var/run/bottle/bottle.pid	
+exe=bottle
+
+case "$1" in
+start)
+	cd $rootfolder
+	pid=`cat $pidfile`
+	if [ $pid ] ;then
+		echo "process is running or you should delete the pid file: $pidfile or run bottle stop"
+	else
+		echo $pid
+		python $file &
+		pid=$!
+		echo $pid > $pidfile
+	fi
+;;
+stop)
+	pid=`cat $pidfile`
+	if [ $pid ] ;then
+		kill -9 $pid
+		echo "" > $pidfile
+	else
+		echo "no pid in file:$pidfile"
+	fi
+;;
+*)
+	echo "usage: $exe [start,stop]"
+	exit 1
+;;
+esac
+
+exit 0
