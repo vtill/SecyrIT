@@ -1,4 +1,4 @@
-###########################
+##########################
 from bottle import route, run, static_file,request,response
 from subprocess import Popen,PIPE,check_output
 
@@ -14,6 +14,7 @@ sys.path.append("../lib" )
 import table
 import netstat
 import nf_conntrack 
+import wireless 
 ######
 ##########################
 
@@ -78,9 +79,10 @@ def form_wifi():
 
 ######################################################################################
 def index_html():
-    filename = 'index.html'
-    mt = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
-    return static_file(filename, root=folder_root, mimetype=mt)
+	folder_root='/root/SecyrIT/bottle/htdocs'
+	filename = 'index.html'
+	mt = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+	return static_file(filename, root=folder_root, mimetype=mt)
 
 def send_image(filename):
     mt = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
@@ -118,6 +120,7 @@ def get_status_netstat_json():
 	response.content_type = 'application/json'
 	return json.dumps(ret)
 
+	
 def choose_wifi():
   #return html(listwifi())
   return html(form_wifi())
@@ -132,10 +135,11 @@ def index():
 def submit():
 	#print request.forms.keys()
 	print request.POST.keys()
+	print request.POST.get('firstname')
 	print request.forms.get('firstname')
 	print request.forms.get('access_points')
 	#print request
-	return "hey"
+	return "request.POST.keys()"
 
 def showWifi():
   pass  
@@ -165,6 +169,9 @@ route('/status_netstat','GET',get_status_netstat)
 route('/status_nf_json','GET',get_status_nf_json)
 route('/status_ip_json','GET',get_status_ip_json)
 route('/status_netstat_json','GET',get_status_netstat_json)
+
+route('/get_wifi_json','GET',wireless.get_wifi_json)
+route('/get_scheme_json','GET',wireless.get_scheme_json)
 
 route('/<pfad:path>','GET',datei)
 

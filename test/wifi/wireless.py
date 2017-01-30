@@ -12,14 +12,8 @@ def getWifiList():
   return res
 
 def getSchemeList():
-	schemeList=[]
 	schemeGen=list(wifi.Scheme.all())
 	return schemeGen 
-	
-	#schemeGen=wifi.Scheme.all()
-	for scheme in schemeGen:
-		schemeList.append(scheme)
-	return schemeList 
 
 def getCompatibleSchemeList(wifiList,schemeList):
 	ret=[]
