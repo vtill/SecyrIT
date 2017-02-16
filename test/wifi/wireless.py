@@ -1,7 +1,46 @@
 import wifi 
 import subprocess
 import time 
+import json
+import sys
 
+#bottle_json_funcs
+def get_wifi_json():
+	res= wifi.Cell.all('wlan0')
+	cells=[]
+
+	for cell in res:
+		row=dict()
+		row['ssid']=cell.ssid
+		row['bitrates']=cell.bitrates
+		row['address']=cell.address
+		row['channel']=cell.channel
+		row['encrypted']=cell.encrypted
+		row['encryption_type']=cell.encryption_type
+		row['frequency']=cell.frequency
+		row['mode']=cell.mode
+		row['quality']=cell.quality
+		row['signal']=cell.signal
+		row['noise']=cell.noise
+		cells.append(row)
+	#response.content_type = 'application/json'
+	return json.dumps(cells)
+
+def get_scheme_json():
+	res=getSchemeList()
+	schemes=[]
+	for scheme in res:
+		row=dict()
+		row['interface']=scheme.interface
+		row['name']=scheme.name
+		row['psk']=scheme.options['wpa-psk']
+		row['ssid']=scheme.options['wpa-ssid']
+		row['channel']=scheme.options['wireless-channel']
+		schemes.append(row)
+	#response.content_type = 'application/json'
+	return json.dumps(schemes)
+
+#############################################################################################
 def printWifiNames():
   res= wifi.Cell.all('wlan0')
   for r in res:
@@ -34,18 +73,38 @@ def showCompatibleSchemeList():
 	compatible=getCompatibleSchemeList(wifiList,schemeList)
 	print(compatible)	
 
-def createScheme():
-		cell= wifi.Cell.all('wlan0')[2]
-		scheme=wifi.Scheme.for_cell('wlan0','town',cell,'falscherMANN')
-		print type(scheme)
-		#scheme.save()
-		scheme.find('wlan0','home')
+def createScheme(cell_ssid,cell_pass):
+	cells= wifi.Cell.all('wlan0')
+	for cell in cells:
+		if(cell.ssid == cell_ssid):
+			scheme=wifi.Scheme.for_cell('wlan0',cell_ssid,cell,cell_pass)
+			scheme.save()
+			scheme.activate()
+			return 0
+		else:
+			return -1
+
+def activateScheme(scheme_name):
+	scheme=wifi.Scheme.find('wlan0',scheme_name)
+	if(scheme):
 		scheme.activate()
+		return 0
+	else:
+		return -1
+
+def deleteScheme(scheme_name):
+	scheme=wifi.Scheme.find('wlan0',scheme_name)
+	if(scheme):
+		scheme.delete()
+		return 0
+	else:
+		return -1
 
 def printSchemes():
 	schemes=getSchemeList()
 	for s in schemes:
 		print "scheme_name: {} scheme_options: {}".format(s.name,s.options)
+
 
 def main():
 	try:
@@ -56,7 +115,7 @@ def main():
 		print("WifiNames:")
 		printWifiNames()
 		#showCompatibleSchemeList()
-		createScheme()
+		#createScheme()
 	except wifi.exceptions.InterfaceError,e:
 		print e
 		arg=['ifup','wlan0']
@@ -69,5 +128,12 @@ def main():
 		out=subprocess.check_output(arg)
 		pass
 
+def env():
+	printSchemes()
+	print sys.argv[0]
+	print sys.argv[1]
+	print sys.argv[2]
+	createScheme(sys.argv[1],sys.argv[2])
+	pass
 
-main()
+env()
