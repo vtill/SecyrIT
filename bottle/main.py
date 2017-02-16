@@ -142,6 +142,13 @@ def submit():
 	return "request.POST.keys()"
 
 def create_scheme():
+	print request.POST.keys()
+
+	ssid=request.POST.get('ssid')
+	passw=request.POST.get('pass')
+	print ssid
+	print passw
+	wireless.createScheme(ssid,passw)
 	pass
 def activate_scheme():
 	pass
@@ -165,7 +172,7 @@ route('/','GET',index_html)
 
 route('/wifi','GET',choose_wifi)
 route('/submit_site','POST',submit)
-route('/create_scheme','POST',submit)
+route('/create_scheme','POST',create_scheme)
 route('/activate_scheme','POST',submit)
 
 route('/status','GET',get_status_nf)
