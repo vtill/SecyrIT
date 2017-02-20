@@ -148,10 +148,23 @@ def create_scheme():
 	passw=request.POST.get('pass')
 	print ssid
 	print passw
-	wireless.createScheme(ssid,passw)
-	pass
+	res=wireless.createScheme(ssid,passw)
+	print res
+	return res
+
 def activate_scheme():
-	pass
+	#ssid=request.POST.get('ssid')
+	#scheme=getSchemeBySsid(ssid)
+	scheme=request.POST.get('scheme')
+	res=wireless.activateScheme(scheme)
+	return res
+
+def delete_scheme():
+	#ssid=request.POST.get('ssid')
+	#scheme=getSchemeBySsid(ssid)
+	scheme=request.POST.get('scheme')
+	res=wireless.deleteScheme(scheme)
+	return res
 
 def showWifi():
   pass  
@@ -173,7 +186,8 @@ route('/','GET',index_html)
 route('/wifi','GET',choose_wifi)
 route('/submit_site','POST',submit)
 route('/create_scheme','POST',create_scheme)
-route('/activate_scheme','POST',submit)
+route('/delete_scheme','POST',delete_scheme)
+route('/activate_scheme','POST',activate_scheme)
 
 route('/status','GET',get_status_nf)
 route('/status_nf','GET',get_status_nf)
@@ -186,6 +200,7 @@ route('/status_netstat_json','GET',get_status_netstat_json)
 
 route('/get_wifi_json','GET',wireless.get_wifi_json)
 route('/get_scheme_json','GET',wireless.get_scheme_json)
+route('/get_wifi_scheme_json','GET',wireless.get_wifi_scheme_json)
 
 route('/<pfad:path>','GET',datei)
 
