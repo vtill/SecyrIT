@@ -13,6 +13,7 @@ import sys
 sys.path.append("../lib" )
 import table
 import netstat
+import netmgr
 import nf_conntrack 
 import wireless 
 ######
@@ -78,6 +79,25 @@ def form_wifi():
 	return '\n'.join(str)
 
 ######################################################################################
+#########
+def hello():
+	return html("hallo")
+
+def index():
+	#return "index Hello World!"
+	return html("hallo")
+
+def submit():
+	#print request.forms.keys()
+	print request.POST.keys()
+	print request.POST.get('firstname')
+	print request.forms.get('firstname')
+	print request.forms.get('access_points')
+	#print request
+	return "request.POST.keys()"
+
+#########
+
 def index_html():
 	folder_root='/root/SecyrIT/bottle/htdocs'
 	filename = 'index.html'
@@ -85,12 +105,18 @@ def index_html():
 	return static_file(filename, root=folder_root, mimetype=mt)
 
 def send_image(filename):
-    mt = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
-    return static_file(filename, root=folder_files, mimetype=mt)
+	mt = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+	return static_file(filename, root=folder_files, mimetype=mt)
       
 def get_status_bak():
-    fname = '%s/statusfile' % os.getcwd()
-    return  '{"status": "%s"}' % str(os.path.exists(fname)) 
+	fname = '%s/statusfile' % os.getcwd()
+	return  '{"status": "%s"}' % str(os.path.exists(fname)) 
+
+def datei(pfad):
+	banana="/root/SecyrIT/bottle/htdocs"
+	return static_file(pfad,root=banana)
+
+#########
 
 def get_status_nf():
 	ret=html(nf_conntrack.nf_conntrack())
@@ -125,22 +151,7 @@ def choose_wifi():
   #return html(listwifi())
   return html(form_wifi())
 
-def hello():
-	return html("hallo")
-
-def index():
-   #return "index Hello World!"
-    return html("hallo")
-
-def submit():
-	#print request.forms.keys()
-	print request.POST.keys()
-	print request.POST.get('firstname')
-	print request.forms.get('firstname')
-	print request.forms.get('access_points')
-	#print request
-	return "request.POST.keys()"
-
+#########
 def create_scheme():
 	print request.POST.keys()
 
@@ -166,12 +177,46 @@ def delete_scheme():
 	res=wireless.deleteScheme(scheme)
 	return res
 
-def showWifi():
-  pass  
+#########
+def getApandConInfoJson():
+	tbl=netmgr.getApandConInfoDict()
+	response.content_type = 'application/json'
+	return json.dumps(tbl)
 
-def datei(pfad):
-	banana="/root/SecyrIT/bottle/htdocs"
-	return static_file(pfad,root=banana)
+def create_netmgr():
+	print request.POST.keys()
+
+	ssid=request.POST.get('ssid')
+	passw=request.POST.get('pass')
+	res=netmgr.create(ssid,passw)
+	print res
+
+	response.content_type = 'application/json'
+	js=json.dumps(res)
+	return js
+
+def activate_netmgr():
+	print request.POST.keys()
+
+	ssid=request.POST.get('ssid')
+	res=netmgr.activate(ssid)
+	print res
+
+	response.content_type = 'application/json'
+	js=json.dumps(res)
+	return js
+
+def delete_netmgr():
+	print request.POST.keys()
+
+	ssid=request.POST.get('ssid')
+	res=netmgr.delete(ssid)
+	print res
+
+	response.content_type = 'application/json'
+	js=json.dumps(res)
+	return js
+#########
 
 ###################################################################################
 #@route('/')
@@ -185,9 +230,6 @@ route('/','GET',index_html)
 
 route('/wifi','GET',choose_wifi)
 route('/submit_site','POST',submit)
-route('/create_scheme','POST',create_scheme)
-route('/delete_scheme','POST',delete_scheme)
-route('/activate_scheme','POST',activate_scheme)
 
 route('/status','GET',get_status_nf)
 route('/status_nf','GET',get_status_nf)
@@ -201,10 +243,16 @@ route('/status_netstat_json','GET',get_status_netstat_json)
 route('/get_wifi_json','GET',wireless.get_wifi_json)
 route('/get_scheme_json','GET',wireless.get_scheme_json)
 route('/get_wifi_scheme_json','GET',wireless.get_wifi_scheme_json)
+route('/create_scheme','POST',create_scheme)
+route('/delete_scheme','POST',delete_scheme)
+route('/activate_scheme','POST',activate_scheme)
 
+route('/get_ap_con_info_json','GET',getApandConInfoJson)
+route('/create_netmgr','POST',create_netmgr)
+route('/delete_netmgr','POST',delete_netmgr)
+route('/activate_netmgr','POST',activate_netmgr)
+
+#######
 route('/<pfad:path>','GET',datei)
-
 ##################################################################################
-
-print table.load("main.py")
 run(host='10.254.239.1', port=8080, debug=True)

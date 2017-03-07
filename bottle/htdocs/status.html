@@ -10,9 +10,17 @@
 </head>
 <!--                             -->
 <body>
+<ul class="nav nav-tabs">
+	<li role="presentation"><a href="status.html">alle Verbindungen</a></li>
+	<li role="presentation"><a href="wifi_2.html">wifi auswahlen</a></li>
+	<li role="presentation" onclick="location.reload(true);"><a href="#">seite neuladen</a></li>
+</ul>
+
 <div class="row">
-  <div class="btn btn-default">default_button</div>
+ <!--<div class="btn btn-default">default_button</div>-->
+	
   <div id="output" class="container">
+		<div id="reload"><button onclick="location.reload(true);">neu laden</button></div>
 		<table id="status_table" class="table table-striped tablesorter"></table>
 	</div>
 
