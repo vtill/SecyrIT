@@ -1,6 +1,6 @@
 ##########################
 from bottle import route, run, static_file,request,response
-from subprocess import Popen,PIPE,check_output
+from subprocess import Popen,PIPE,check_output,CalledProcessError
 
 import re
 import wifi 
@@ -217,7 +217,19 @@ def delete_netmgr():
 	js=json.dumps(res)
 	return js
 #########
+def update_secyrIT():
+	arg=[
+		'/root/SecyrIT/bash_scripts/updateSecyrIT.sh'
+	]
 
+	try:
+		out=check_output(arg)
+	except CalledProcessError, e:
+		pass
+
+	response.content_type = 'application/json'
+	js=json.dumps(out)
+	return js
 ###################################################################################
 #@route('/')
 #@route('/files/<filename:re:.*\.*>')
@@ -252,6 +264,7 @@ route('/create_netmgr','POST',create_netmgr)
 route('/delete_netmgr','POST',delete_netmgr)
 route('/activate_netmgr','POST',activate_netmgr)
 
+route('/update','GET',update_secyrIT)
 #######
 route('/<pfad:path>','GET',datei)
 ##################################################################################
