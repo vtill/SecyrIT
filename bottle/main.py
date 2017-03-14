@@ -16,6 +16,7 @@ import netstat
 import netmgr
 import nf_conntrack 
 import wireless 
+import pcap
 ######
 ##########################
 
@@ -223,12 +224,26 @@ def update_secyrIT():
 	]
 
 	try:
-		out=check_output(arg)
+		update_out=check_output(arg)
 	except CalledProcessError, e:
 		pass
 
 	response.content_type = 'application/json'
-	js=json.dumps(out)
+	js=json.dumps(update_out)
+	return js
+#########
+def restart_secyrIT():
+	arg=[
+		'/root/SecyrIT/init_d_scripts/bottle'
+		,"restart"
+	]
+	try:
+		restart_out=check_output(arg)
+	except CalledProcessError, e:
+		pass
+
+	response.content_type = 'application/json'
+	js=json.dumps(_out)
 	return js
 ###################################################################################
 #@route('/')
@@ -265,7 +280,10 @@ route('/delete_netmgr','POST',delete_netmgr)
 route('/activate_netmgr','POST',activate_netmgr)
 
 route('/update','GET',update_secyrIT)
+route('/restart','GET',restart_secyrIT)
 #######
 route('/<pfad:path>','GET',datei)
 ##################################################################################
+
+pcap.run()
 run(host='10.254.239.1', port=8080, debug=True)

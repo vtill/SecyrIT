@@ -28,12 +28,6 @@
 <!--                             -->
 <script type="text/javascript">
 
-	function ajax2(){
-		var blah=$.getJSON("/status_nf_json");
-		alert(blah);
-		$(body).appendChild('<table class="tablesorter" id="status_table">');
-	}
-
 	function ajax(){
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', '/status_nf_json', true);
@@ -44,11 +38,6 @@
 			var j=JSON.parse(xhr.responseText);
 			var j=JSON.parse(j);
 			var tbl=document.getElementById("status_table");
-			/*
-			var tbl=document.createElement("table");
-			tbl.className="table table-striped tablesorter";
-			tbl.id="myTable";
-			*/
 
 			console.log(j.length);
 			var thead=document.createElement("thead");
@@ -82,8 +71,9 @@
 			tbl.appendChild(thead);
 
 			var tbody=document.createElement("tbody");
+			var gatewayIP="10.254.239.1";
 			for (i=0;i<j.length;i++){
-				if(j[i]==null){
+				if(j[i]==null || j[i].cons[0].dst==gatewayIP||j[i].cons[0].src==gatewayIP){
 					continue;
 				}
 				var tr=document.createElement("tr");
@@ -133,11 +123,6 @@ $(document).ready(function(){
 	ajax();
 	//ajax2();
 }); 
-
-
-function sort(tbl){
-var a="blubb";
-}
 
 </script>
 
