@@ -19,11 +19,11 @@
 rootfolder=/root/SecyrIT/bottle
 file=main.py
 
-pidfile=/var/run/bottle/bottle.pid	
+#pidfile=/var/run/bottle/bottle.pid	
+pidfile=/root/SecyrIT/init_d_scripts/bottle.pid
 exe=bottle
 
-case "$1" in
-start)
+start(){
 	cd $rootfolder
 	pid=`cat $pidfile`
 	if [ $pid ] ;then
@@ -34,8 +34,9 @@ start)
 		pid=$!
 		echo $pid > $pidfile
 	fi
-;;
-stop)
+}
+
+stop(){
 	pid=`cat $pidfile`
 	if [ $pid ] ;then
 		kill -9 $pid
@@ -43,6 +44,17 @@ stop)
 	else
 		echo "no pid in file:$pidfile"
 	fi
+}
+case "$1" in
+start)
+	start
+	;;
+stop)
+	stop
+;;
+restart)
+	stop
+	start
 ;;
 *)
 	echo "usage: $exe [start,stop]"
