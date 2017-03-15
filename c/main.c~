@@ -1,0 +1,36 @@
+#include "browser.h"
+#include "process.h"
+#include "gateway.h"
+
+
+int main(){
+	PIP_ADAPTER_INFO pAdapterInfo;
+	char browser[100];
+	char exe[100];
+	char *delimeter="\"";
+	char **gateway;
+	char *ptr[10];
+
+	int count,i;
+
+	gateway=createCharArray(10,50);
+	readDefaultBrowser(browser);
+	pAdapterInfo=getAdapterInfo();
+	count=getGateway(pAdapterInfo,gateway);
+		
+	i=0;
+	ptr[i]=strtok(browser,delimeter);
+	while(ptr[i]!=NULL){
+		i++;
+		ptr[i]=strtok(NULL,delimeter);
+	}
+
+	sprintf(exe,"%s %s %s",ptr[0],ptr[1],gateway[0]);
+
+	printf("%s\n",exe);
+	//printf("%s\n",browser);
+	printf("%s\n",gateway[0]);
+
+	process(exe);
+	return 0;
+}

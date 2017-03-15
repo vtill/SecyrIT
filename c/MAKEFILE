@@ -1,0 +1,2 @@
+main.exe:main.c
+	cl main.c gateway.c getDesktop.c intershortcut.c shell32.lib iphlpapi.lib ole32.lib 
