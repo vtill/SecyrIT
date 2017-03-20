@@ -231,7 +231,7 @@ def update_secyrIT():
 	response.content_type = 'application/json'
 	js=json.dumps(update_out)
 	return js
-#########
+
 def restart_secyrIT():
 	arg=[
 		'/root/SecyrIT/init_d_scripts/bottle'
@@ -245,6 +245,19 @@ def restart_secyrIT():
 	response.content_type = 'application/json'
 	js=json.dumps(_out)
 	return js
+
+#########
+def pcap_read():
+	sPcapFileName="17_03_20__10_03_20.pcap"
+	dstIP=request.POST.get("dstIP")
+	srcPort=request.POST.get("srcPort")
+	print("dstIP: {}  srcPort: {}").format(dstIP,srcPort)
+	out=pcap.read(sPcapFileName, dstIP, srcPort)
+	js=json.dumps(out)
+	return js
+
+	
+
 ###################################################################################
 #@route('/')
 #@route('/files/<filename:re:.*\.*>')
@@ -281,6 +294,9 @@ route('/activate_netmgr','POST',activate_netmgr)
 
 route('/update','GET',update_secyrIT)
 route('/restart','GET',restart_secyrIT)
+
+route('/pcap_read','POST',pcap_read)
+
 #######
 route('/<pfad:path>','GET',datei)
 ##################################################################################
