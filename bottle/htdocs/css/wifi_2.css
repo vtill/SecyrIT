@@ -1,0 +1,33 @@
+body{
+	font-family:Verdana;
+	font-size:100%;
+}
+
+div.entry{
+	background-color:#E5E5E5;	
+	margin-top:10px;
+	padding:10px;
+	overflow:auto;
+}
+div.entry.active{
+	background-color:#DFF0D8;	
+	margin-top:10px;
+	padding:10px;
+
+}
+div.actions{
+	width:50%;
+	float:right;
+}
+div.ssid{
+	font-size:18px;
+	width:50%;
+	float:left;
+}
+
+div.actions form{
+	float:right;
+}
+span.glyphicon{
+	margin-right:7px;
+}

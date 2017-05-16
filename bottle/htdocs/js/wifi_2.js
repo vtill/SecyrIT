@@ -51,6 +51,7 @@ function createDiv(response){
 	
 	var container=document.createElement('div');
 	container.id='container';
+	container.className='container';
 
 	var div=document.getElementById("container");
 	if(div){
@@ -66,11 +67,13 @@ function createDiv(response){
 				var body=createPaneBodyWifi(j[i].SSID);
 			}
 			var row=document.createElement('div'); 
-			row.className="entry";
+			row.className="entry panel";
 
 			if(j[i].ACTIVE=='yes'){
+				/*
 				var txt=document.createTextNode("aktiv");
 				body.appendChild(txt);
+				*/
 				row.className = "entry active";
 			}
 			row.appendChild(heading);
@@ -86,7 +89,11 @@ function createDiv(response){
 
 function createHeading(txt){
 	var heading=document.createElement('div'); 
+	heading.className="ssid";
+	var span=document.createElement('span');
+	span.className='glyphicon glyphicon-signal';
 	var str=document.createTextNode(txt);
+	heading.appendChild(span);
 	heading.appendChild(str);
 	return heading;
 }
@@ -98,6 +105,7 @@ function moruk(txt){
 
 function createPaneBodyWifi(ssid){
 	var body=document.createElement('div'); 
+	body.className="actions";
 		var form=document.createElement('form');
 			//form.action='/create_netmgr';
 			form.onsubmit=function(evt){
@@ -126,6 +134,7 @@ function createPaneBodyWifi(ssid){
 
 function createPaneBodyScheme(scheme_name){
 	var body=document.createElement('div'); 
+	body.className="actions";
 		/** delete */
 		var form_delete=document.createElement('form');
 			//form_delete.action='/delete_netmgr';

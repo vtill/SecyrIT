@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +5,7 @@
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/header.css">
-	<link rel="stylesheet" type="text/css" href="css/show_ssid.css">
+	<link rel="stylesheet" type="text/css" href="css/content_css">
 	<link rel="stylesheet" type="text/css" href="css/footer.css">
 </head>
 <body>
@@ -16,18 +15,3 @@
 	<li role="presentation"><a class="btn btn-default" href="wifi_2.html">wifi auswahlen</a></li>
 	<li role="presentation" onclick="location.reload(true);"><a class="btn btn-default href="#">seite neuladen</a></li>
 </ul>
-
-	<p>wifi zeugs</p>
-	<script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>	
-	<script src="js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>	
-	<script type="text/javascript" src="js/show_ssid.js"></script>
-	<script type="text/javascript">
-		ajax();
-	</script>
-
-<div id="footer">
-</div>
-</body>
-</html>
-
