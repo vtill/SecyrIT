@@ -1,0 +1,85 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 13614286650771684054 (0xbcefa993c996bad6)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=DE, ST=NRW, O=till.net, OU=SecyrIT, CN=vpn.tillnet.de_CA/emailAddress=technik@till.net
+        Validity
+            Not Before: Apr  1 10:11:12 2017 GMT
+            Not After : Apr 10 16:53:39 2027 GMT
+        Subject: C=DE, ST=NRW, O=till.net, OU=SecyrIT, CN=vpn.tillnet.de_CA/emailAddress=technik@till.net
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:ac:de:69:44:a9:b9:21:d9:9f:10:e0:e1:c4:9c:
+                    e2:f3:9a:5a:9c:ed:d3:d9:ed:0f:df:cc:f9:22:bb:
+                    3c:4f:2a:58:09:d3:26:96:a4:c1:b3:28:e1:41:4d:
+                    dc:5c:93:4f:b5:95:4f:12:0a:90:ec:08:31:64:5c:
+                    d5:53:62:52:a3:69:25:4e:9a:d3:06:e8:dd:93:19:
+                    bb:c4:08:a4:3b:43:13:b1:87:74:6c:2b:3f:80:8b:
+                    01:8c:85:54:e9:0e:ae:35:ca:8d:5c:3e:63:09:ce:
+                    44:c7:f4:59:1f:6d:df:a2:8a:67:12:d5:3e:1e:d1:
+                    f3:49:04:e7:b7:f8:8f:42:26:c9:2c:09:1f:76:ae:
+                    98:48:a6:43:d2:5b:c7:1e:dd:53:e8:70:b5:16:c0:
+                    48:0c:36:2e:e3:d6:11:79:a3:b7:dd:dd:86:94:29:
+                    78:bd:23:ca:6c:97:7f:ea:37:70:7d:65:b6:5f:9e:
+                    4e:8a:d5:f5:56:3c:4e:b5:88:1a:05:31:6d:3c:fb:
+                    06:3f:f6:3b:f9:99:32:95:fc:11:54:89:0b:67:40:
+                    93:14:09:53:56:e5:99:ae:cd:6f:25:95:1c:6a:d8:
+                    3b:f6:64:62:53:84:47:2d:dc:63:b4:03:e0:08:b7:
+                    64:b6:2b:0e:46:b1:c1:59:3a:5c:cb:e7:74:59:f5:
+                    b1:df
+                Exponent: 3 (0x3)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                E7:EB:35:7B:04:52:42:23:79:AA:11:31:A9:87:76:0C:E2:BD:DF:48
+            X509v3 Authority Key Identifier: 
+                keyid:E7:EB:35:7B:04:52:42:23:79:AA:11:31:A9:87:76:0C:E2:BD:DF:48
+                DirName:/C=DE/ST=NRW/O=till.net/OU=SecyrIT/CN=vpn.tillnet.de_CA/emailAddress=technik@till.net
+                serial:BC:EF:A9:93:C9:96:BA:D6
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: sha256WithRSAEncryption
+         07:27:b8:7e:4c:f8:11:8e:f4:b8:25:e3:c0:25:3f:ae:07:cc:
+         3a:5a:73:9e:47:eb:b8:60:69:8e:1f:58:59:03:d3:2a:fb:de:
+         44:e1:53:4c:4b:34:89:e6:74:f7:55:2d:eb:0c:66:90:db:98:
+         a6:76:64:67:06:ec:f1:0f:ec:10:70:5e:21:fd:fe:c3:bd:de:
+         aa:dc:ea:c1:d1:8c:0e:1a:bd:71:1b:89:5b:7c:8c:13:e2:9e:
+         a0:b0:66:e0:35:b1:c1:db:7a:02:0d:8d:7a:f4:93:24:f6:34:
+         5c:99:dd:9f:72:28:02:35:bb:42:4e:c1:78:4c:28:97:34:8b:
+         e5:cb:d8:64:0d:79:86:15:6c:74:c4:af:c0:f7:8f:fd:98:ee:
+         c1:96:e3:1a:12:18:96:77:ec:a2:0e:50:7c:d0:f6:c7:c0:8e:
+         55:00:ec:97:43:e7:9e:f4:63:ea:07:23:32:b9:7c:01:e8:4a:
+         2f:ef:0e:ad:65:63:c9:f2:3d:16:19:87:bf:a7:3a:df:7d:da:
+         4d:b6:f0:71:7f:55:17:0c:9c:d1:e3:3b:87:a5:cc:77:d7:0e:
+         dc:7f:ae:5f:8f:be:bf:64:01:54:f4:d7:a3:90:30:3c:c1:7b:
+         e1:c2:22:29:e6:cf:b0:79:5c:ac:32:cc:81:ab:6b:70:04:34:
+         d9:fb:fa:47
+-----BEGIN CERTIFICATE-----
+MIIEXzCCA0egAwIBAgIJALzvqZPJlrrWMA0GCSqGSIb3DQEBCwUAMH0xCzAJBgNV
+BAYTAkRFMQwwCgYDVQQIDANOUlcxETAPBgNVBAoMCHRpbGwubmV0MRAwDgYDVQQL
+DAdTZWN5cklUMRowGAYDVQQDDBF2cG4udGlsbG5ldC5kZV9DQTEfMB0GCSqGSIb3
+DQEJARYQdGVjaG5pa0B0aWxsLm5ldDAeFw0xNzA0MDExMDExMTJaFw0yNzA0MTAx
+NjUzMzlaMH0xCzAJBgNVBAYTAkRFMQwwCgYDVQQIDANOUlcxETAPBgNVBAoMCHRp
+bGwubmV0MRAwDgYDVQQLDAdTZWN5cklUMRowGAYDVQQDDBF2cG4udGlsbG5ldC5k
+ZV9DQTEfMB0GCSqGSIb3DQEJARYQdGVjaG5pa0B0aWxsLm5ldDCCASAwDQYJKoZI
+hvcNAQEBBQADggENADCCAQgCggEBAKzeaUSpuSHZnxDg4cSc4vOaWpzt09ntD9/M
++SK7PE8qWAnTJpakwbMo4UFN3FyTT7WVTxIKkOwIMWRc1VNiUqNpJU6a0wbo3ZMZ
+u8QIpDtDE7GHdGwrP4CLAYyFVOkOrjXKjVw+YwnORMf0WR9t36KKZxLVPh7R80kE
+57f4j0ImySwJH3aumEimQ9Jbxx7dU+hwtRbASAw2LuPWEXmjt93dhpQpeL0jymyX
+f+o3cH1ltl+eTorV9VY8TrWIGgUxbTz7Bj/2O/mZMpX8EVSJC2dAkxQJU1blma7N
+byWVHGrYO/ZkYlOERy3cY7QD4Ai3ZLYrDkaxwVk6XMvndFn1sd8CAQOjgeMwgeAw
+HQYDVR0OBBYEFOfrNXsEUkIjeaoRMamHdgzivd9IMIGwBgNVHSMEgagwgaWAFOfr
+NXsEUkIjeaoRMamHdgzivd9IoYGBpH8wfTELMAkGA1UEBhMCREUxDDAKBgNVBAgM
+A05SVzERMA8GA1UECgwIdGlsbC5uZXQxEDAOBgNVBAsMB1NlY3lySVQxGjAYBgNV
+BAMMEXZwbi50aWxsbmV0LmRlX0NBMR8wHQYJKoZIhvcNAQkBFhB0ZWNobmlrQHRp
+bGwubmV0ggkAvO+pk8mWutYwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOC
+AQEABye4fkz4EY70uCXjwCU/rgfMOlpznkfruGBpjh9YWQPTKvveROFTTEs0ieZ0
+91Ut6wxmkNuYpnZkZwbs8Q/sEHBeIf3+w73eqtzqwdGMDhq9cRuJW3yME+KeoLBm
+4DWxwdt6Ag2NevSTJPY0XJndn3IoAjW7Qk7BeEwolzSL5cvYZA15hhVsdMSvwPeP
+/ZjuwZbjGhIYlnfsog5QfND2x8COVQDsl0PnnvRj6gcjMrl8AehKL+8OrWVjyfI9
+FhmHv6c6333aTbbwcX9VFwyc0eM7h6XMd9cO3H+uX4++v2QBVPTXo5AwPMF74cIi
+KebPsHlcrDLMgatrcAQ02fv6Rw==
+-----END CERTIFICATE-----

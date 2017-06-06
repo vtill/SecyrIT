@@ -88,14 +88,24 @@ function createDiv(response){
 }
 
 function createHeading(txt){
-	var heading=document.createElement('div'); 
-	heading.className="ssid";
-	var span=document.createElement('span');
-	span.className='glyphicon glyphicon-signal';
-	var str=document.createTextNode(txt);
-	heading.appendChild(span);
-	heading.appendChild(str);
-	return heading;
+	var row=document.createElement('div'); 
+	row.className="rowEntry";
+	row.addEventListener("click",function(evt){
+		var d=evt.currentTarget.nextSibling.style.display;
+		if(d=="none"){
+			d="block";
+		}else d="none";
+		evt.currentTarget.nextSibling.style.display=d;
+	});
+		var heading=document.createElement('div'); 
+		heading.className="ssid";
+			var span=document.createElement('span');
+			span.className='glyphicon glyphicon-signal';
+		heading.appendChild(span);
+			var str=document.createTextNode(txt);
+		heading.appendChild(str);
+	row.appendChild(heading);
+	return row;
 }
 
 function moruk(txt){
@@ -104,10 +114,13 @@ function moruk(txt){
 }
 
 function createPaneBodyWifi(ssid){
-	var body=document.createElement('div'); 
-	body.className="actions";
-		var form=document.createElement('form');
-			//form.action='/create_netmgr';
+	var row=document.createElement('div'); 
+	row.className="rowEntry";
+	row.style.display="none";
+		var body=document.createElement('div'); 
+		body.className="actions";
+			var form=document.createElement('form');
+				//form.action='/create_netmgr';
 			form.onsubmit=function(evt){
 				evt.preventDefault();
 				params="ssid="+encodeURIComponent(ssid)+"&pass="+encodeURIComponent(pass.value);
@@ -115,69 +128,74 @@ function createPaneBodyWifi(ssid){
 				ajax_create(params);
 			};
 			form.method='POST';
-			var input_ssid=document.createElement('input');
+				var input_ssid=document.createElement('input');
 				input_ssid.type="hidden";
 				input_ssid.name="ssid";
 				input_ssid.value=ssid;
 			form.appendChild(input_ssid);
-			var pass=document.createElement('input');
+				var pass=document.createElement('input');
 				pass.type="text";
 				pass.name="pass";
 			form.appendChild(pass);
-			var submit=document.createElement('input');	
+				var submit=document.createElement('input');	
 				submit.type='submit';
 				submit.value='verbinden';
 			form.appendChild(submit);
 		body.appendChild(form);
-	return body;
+	row.appendChild(body);
+	return row;
 }
 
 function createPaneBodyScheme(scheme_name){
-	var body=document.createElement('div'); 
-	body.className="actions";
-		/** delete */
-		var form_delete=document.createElement('form');
-			//form_delete.action='/delete_netmgr';
-			form_delete.onsubmit=function(evt){
-				evt.preventDefault();
-				params="ssid="+encodeURIComponent(scheme_name);
-				moruk(params);
-				ajax_delete(params);
-			};
-			form_delete.method='POST';
-			var input_scheme=document.createElement('input');
-				input_scheme.type="hidden";
-				input_scheme.name="ssid";
-				input_scheme.value=scheme_name;
-				form_delete.appendChild(input_scheme);
-			var submit=document.createElement('input');	
-				submit.type='submit';
-				submit.value='loeschen';
-				form_delete.appendChild(submit);
-		body.appendChild(form_delete);
+	var row=document.createElement('div'); 
+	row.className="actions";
+	row.style.display="none";
+		var body=document.createElement('div'); 
+		body.className="actions";
+			/** delete */
+			var form_delete=document.createElement('form');
+				//form_delete.action='/delete_netmgr';
+				form_delete.onsubmit=function(evt){
+					evt.preventDefault();
+					params="ssid="+encodeURIComponent(scheme_name);
+					moruk(params);
+					ajax_delete(params);
+				};
+				form_delete.method='POST';
+				var input_scheme=document.createElement('input');
+					input_scheme.type="hidden";
+					input_scheme.name="ssid";
+					input_scheme.value=scheme_name;
+					form_delete.appendChild(input_scheme);
+				var submit=document.createElement('input');	
+					submit.type='submit';
+					submit.value='loeschen';
+					form_delete.appendChild(submit);
+			body.appendChild(form_delete);
 
-		/** activate */
-		var form_activate=document.createElement('form');
-			//form_activate.action='/activate_netmgr';
-			form_activate.method='POST';
-			form_activate.onsubmit=function(evt){
-				evt.preventDefault();
-				params="ssid="+encodeURIComponent(scheme_name);
-				moruk(params);
-				ajax_delete(params);
-			};
-			var input_scheme=document.createElement('input');
-				input_scheme.type="hidden";
-				input_scheme.name="ssid";
-				input_scheme.value=scheme_name;
-			form_activate.appendChild(input_scheme);
-			var submit=document.createElement('input');	
-				submit.type='submit';
-				submit.value='verbinden';
-		form_activate.appendChild(submit);
-	body.appendChild(form_activate);
+			/** activate */
+			var form_activate=document.createElement('form');
+				//form_activate.action='/activate_netmgr';
+				form_activate.method='POST';
+				form_activate.onsubmit=function(evt){
+					evt.preventDefault();
+					params="ssid="+encodeURIComponent(scheme_name);
+					moruk(params);
+					ajax_delete(params);
+				};
+				var input_scheme=document.createElement('input');
+					input_scheme.type="hidden";
+					input_scheme.name="ssid";
+					input_scheme.value=scheme_name;
+				form_activate.appendChild(input_scheme);
+				var submit=document.createElement('input');	
+					submit.type='submit';
+					submit.value='verbinden';
+			form_activate.appendChild(submit);
+		body.appendChild(form_activate);
+	row.appendChild(body);
 
-	return body;
+	return row;
 }
 
 function createSelect(response){
