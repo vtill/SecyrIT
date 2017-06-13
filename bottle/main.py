@@ -1,6 +1,7 @@
 ##########################
 from bottle import route, run, static_file,request,response
-from subprocess import Popen,PIPE,check_output,CalledProcessError
+from subprocess import Popen,PIPE,check_output,CalledProcessError,call
+import multiprocessing
 
 import re
 import wifi 
@@ -255,7 +256,16 @@ def pcap_read():
 	out=pcap.read(sPcapFileName, dstIP, srcPort)
 	js=json.dumps(out)
 	return js
+#########
+def login():
+	p1=multiprocessing.Process(target=login_proc)
+	p1.start()
+	#p1.join() #darf nicht genutzt werden weil es die prozesse vereint  
+	return "done"
 
+def login_proc():
+	args=["openvpn","--config","/root/SecyrIT/openvpn/conf/client.conf"]
+	call(args,stdin=None,stdout=None,stderr=None,shell=False)		
 	
 
 ###################################################################################
@@ -296,6 +306,8 @@ route('/update','GET',update_secyrIT)
 route('/restart','GET',restart_secyrIT)
 
 route('/pcap_read','POST',pcap_read)
+
+route('/login','GET',login)
 
 #######
 route('/<pfad:path>','GET',datei)
