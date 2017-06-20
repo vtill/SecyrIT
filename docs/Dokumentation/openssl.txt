@@ -1,0 +1,198 @@
+Openssl Doku im Bezug auf Openvpn:
+0.OrdnerStruktur/Dateien:
+1.config_files:
+	1.1 ca.cnf
+	1.2	server.cnf
+	1.3 client.cnf
+2.bash scripte:
+	2.1 ordner erzeugen
+	2.2 ca erzeugen	
+	2.3 server erzeugen	
+	2.4 client erzeugen	
+	2.5 dh erzeugen
+	
+0.OrdnerStruktur/Dateien:
+	ca.cnf
+	client.cnf
+	server.cnf
+	createFolder.sh
+	create_client.sh
+	create_dh2084.sh
+	create_server.sh
+	createca.sh
+	server.conf
+	CA/
+		certs/
+		client/
+		crl_dir/
+		dh/
+		etc/
+		new_certs_dir/
+		server/
+
+
+1.1 ca.cnf:
+	[ ca ]
+		default_ca							= CA_default					# The default ca section
+	[ CA_default ]
+		dir											= ./CA								# Where everything is kept
+		certs										= $dir/certs					# Where the issued certs are kept
+		crl_dir									= $dir/crl_dir				# Where the issued crl are kept
+		new_certs_dir						= $dir/new_certs_dir	# default place for new certs.
+		database								= $dir/etc/index.txt	# database index file.
+		certificate							= $dir/etc/ca.crt	 		# The CA certificate
+		private_key							= $dir/etc/ca.key			# The private key
+		serial									= $dir/etc/serial 		# The current serial number
+		crl											= $dir/etc/crl.pem 		# The current CRL
+		RANDFILE								= $dir/etc/.rand			# private random number file
+		default_startdate				= 170401101112Z
+		default_days						= 3650								# how long to certify for
+		default_crl_days				= 30									# how long before next CRL
+		default_md							= sha256							# use public key default MD
+		preserve								= no									# keep passed DN ordering
+		x509_extensions					= v3_ca 							# The extentions to add to the cert
+		policy									= policy_match
+	[ policy_match ]
+		countryName							= match
+		stateOrProvinceName			= match
+		organizationName				= match
+		organizationalUnitName	= optional
+		commonName							= supplied
+		name										= optional
+		emailAddress						= optional
+	[ usr_cert ]
+		basicConstraints				= CA:FALSE
+		nsComment								= "SecyrIT"
+		subjectKeyIdentifier		= hash
+		authorityKeyIdentifier	= keyid,issuer:always
+		extendedKeyUsage				= clientAuth
+		keyUsage								= digitalSignature
+	[ v3_ca ]
+		subjectKeyIdentifier		= hash
+		authorityKeyIdentifier	= keyid:always,issuer:always
+		basicConstraints				= CA:true
+
+1.2 server.cnf:
+	[ ca ]
+		default_ca							= CA_default					# The default ca section
+	[ CA_default ]
+		dir											= ./CA								# Where everything is kept
+		certs										= $dir/certs					# Where the issued certs are kept
+		crl_dir									= $dir/crl_dir				# Where the issued crl are kept
+		new_certs_dir						= $dir/new_certs_dir	# default place for new certs.
+		database								= $dir/etc/index.txt	# database index file.
+		certificate							= $dir/etc/ca.crt	 		# The CA certificate
+		private_key							= $dir/etc/ca.key			# The private key
+		serial									= $dir/etc/serial 		# The current serial number
+		crl											= $dir/etc/crl.pem 		# The current CRL
+		RANDFILE								= $dir/etc/.rand			# private random number file
+		default_startdate				= 170401101112Z
+		default_days						= 3650								# how long to certify for
+		default_crl_days				= 30									# how long before next CRL
+		default_md							= sha256							# use public key default MD
+		preserve								= no									# keep passed DN ordering
+		x509_extensions					= v3_server 					# The extentions to add to the cert
+		policy									= policy_anything
+	[ policy_anything ]
+		countryName							= optional
+		stateOrProvinceName			= optional
+		localityName						= optional
+		organizationName				= optional
+		organizationalUnitName	= optional
+		commonName							= supplied
+		name										= optional
+		emailAddress						= optional
+	[ v3_server ]
+		basicConstraints				= CA:FALSE
+		nsCertType              = server
+		nsComment               = "Easy-RSA Generated Server Certificate"
+		subjectKeyIdentifier		= hash
+		authorityKeyIdentifier  = keyid,issuer:always
+		extendedKeyUsage				= serverAuth
+		keyUsage 								= digitalSignature, keyEncipherment
+
+1.3 client.cnf:
+	[ ca ]
+		default_ca							= CA_default							# The default ca section
+	[ CA_default ]
+		dir											= /etc/openvpn/scripts/CA	# Where everything is kept
+		certs										= $dir/certs							# Where the issued certs are kept
+		crl_dir									= $dir/crl_dir						# Where the issued crl are kept
+		new_certs_dir						= $dir/new_certs_dir			# default place for new certs.
+		database								= $dir/etc/index.txt			# database index file.
+		certificate							= $dir/etc/ca.crt					# The CA certificate
+		private_key							= $dir/etc/ca.key					# The private key
+		serial									= $dir/etc/serial					# The current serial number
+		crl											= $dir/etc/crl.pem				# The current CRL
+		RANDFILE								= $dir/etc/.rand					# private random number file
+		default_startdate				= 170401101112Z
+		default_days						= 3650										# how long to certify for
+		default_crl_days				= 30											# how long before next CRL
+		default_md							= sha256									# use public key default MD
+		preserve								= no											# keep passed DN ordering
+		x509_extensions					= v3_usr									# The extentions to add to the cert
+		policy									= policy_anything
+	[ policy_anything ]
+		countryName							= optional
+		stateOrProvinceName			= optional
+		localityName						= optional
+		organizationName				= optional
+		organizationalUnitName	= optional
+		commonName							= supplied
+		name										= optional
+		emailAddress						= optional
+	[ v3_usr ]
+		basicConstraints				= CA:FALSE
+		nsComment								= "SecyrIT"
+		subjectKeyIdentifier		= hash
+		authorityKeyIdentifier	= keyid,issuer:always
+		extendedKeyUsage				= clientAuth
+		keyUsage 								= digitalSignature
+
+2.1 ordner erzeugen:
+	dateiname:createFolder.sh
+	mkdir CA
+	mkdir CA/certs
+	mkdir CA/new_certs_dir
+	mkdir CA/crl_dir
+	mkdir CA/etc
+	mkdir CA/client
+	mkdir CA/server
+	mkdir CA/dh
+	touch CA/etc/index.txt
+2.2.ca erzeugen:
+	dateiname:createca.sh	
+	key			= CA/etc/ca.key
+	csr			= CA/etc/ca.csr
+	crt			= CA/etc/ca.crt
+	ca_cnf	= ca.cnf
+	subj		= '/C=DE/ST=NRW/L=Koeln/O=till.net/OU=SecyrIT/CN=vpn.tillnet.de_CA/emailAddress=technik@till.net'
+	openssl genpkey -algorithm RSA -out $key -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:3
+	openssl req -new -subj $subj -key $key -out $csr
+	openssl ca -create_serial -selfsign -config $ca_cnf -key $key -in $csr -out $crt
+
+2.3.server erzeugen:
+	dateiname:create_server.sh
+	key					= CA/server/server.key
+	csr					= CA/server/server.csr
+	crt					= CA/server/server.crt
+	server_cnf	= server.cnf
+	subj				= '/C=DE/ST=NRW/L=Koeln/O=till.net/OU=SecyrIT/CN=vpn.tillnet.de/emailAddress=technik@till.net'
+	openssl	genpkey -algorithm RSA -out $key -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:3
+	openssl req -new -key $key -out $csr -subj $subj
+	openssl ca -config $server_cnf -in $csr -out $crt
+
+2.4.client erzeugen:
+	dateiname:create_client.sh
+	key					= CA/client/$1.key
+	csr					= CA/client/$1.csr
+	crt					= CA/client/$1.crt
+	client_cnf	= client.cnf
+	subj				= '/CN='$1'/emailAddress='$2
+	openssl genpkey -algorithm RSA -out $key -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:3
+	openssl req -new -key $key -out $csr -subj $subj -batch
+	openssl ca -config $client_cnf -in $csr -out $crt
+
+2.5.dh erzeugen:
+	dateiname:create_dh2084.sh
+	openssl genpkey -genparam -algorithm DH -out CA/dh/dh2048.pem -pkeyopt dh_paramgen_prime_len:2048 

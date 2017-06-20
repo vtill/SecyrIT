@@ -1,0 +1,39 @@
+openvpn Doku
+
+1 configs
+	1.1 client.conf
+	1.2 server.conf
+
+1.1 client.conf
+	client
+	dev tun
+	proto udp
+	remote vpn.tillnet.de 1194
+	resolv-retry infinite
+	nobind
+	persist-key
+	persist-tun
+	ca /root/SecyrIT/openvpn/keys/ca.crt
+	cert /root/SecyrIT/openvpn/keys/client.crt
+	key /root/SecyrIT/openvpn/keys/client.key
+	ns-cert-type server
+	cipher AES-256-CBC
+	verb 3
+	link-mtu 1557
+	keysize 256
+1.2 server.conf
+	port 1194
+	proto udp
+	dev tun
+	ca /etc/openvpn/scripts/CA/etc/ca.crt
+	cert /etc/openvpn/scripts/CA/server/server.crt
+	key /etc/openvpn/scripts/CA/server/server.key  # This file should be kept secret
+	dh /etc/openvpn/scripts/CA/dh/dh2048.pem
+	server 10.8.0.0 255.255.255.0
+	ifconfig-pool-persist ipp.txt
+	keepalive 10 120
+	cipher AES-256-CBC
+	persist-key
+	persist-tun
+	status openvpn-status.log
+	verb 3
